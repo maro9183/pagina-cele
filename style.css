@@ -586,6 +586,8 @@ nav {
   fill: var(--arena);
 }
 
+.whatsapp-float span { display: none; }
+
 /* FORM ACTIONS DUAL BUTTONS */
 .form-actions {
   display: grid;
@@ -705,9 +707,7 @@ footer {
 
 @media (max-width: 600px) {
   .ofrecemos-grid { grid-template-columns: 1fr; }
-  .whatsapp-float { bottom: 1.5rem; right: 1.5rem; padding: 0.7rem; border-radius: 50%; }
-  .whatsapp-float span { display: none; }
-  .whatsapp-float svg { width: 22px; height: 22px; }
+  .whatsapp-float { bottom: 1.5rem; right: 1.5rem; }
 }
 
 /* CARRUSEL - pantallas angostas */

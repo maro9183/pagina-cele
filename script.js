@@ -105,6 +105,9 @@ navLinks.querySelectorAll('a').forEach(link => {
 });
 
 // CARRUSEL
+// ⏱️ Cambiá este valor para modificar el tiempo entre slides (en milisegundos)
+const CARRUSEL_INTERVALO_MS = 4000; // 8000 = 8 segundos
+
 const track = document.getElementById('carrusel-track');
 const slides = track.querySelectorAll('.carrusel-slide');
 const dotsContainer = document.getElementById('carrusel-dots');
@@ -145,13 +148,14 @@ function irA(n) {
 }
 
 function reiniciarProgress() {
+  const segundos = CARRUSEL_INTERVALO_MS / 1000;
   progressBar.style.transition = 'none';
   progressBar.style.width = '0%';
   
   // Forzar reflow
   progressBar.offsetHeight; 
   
-  progressBar.style.transition = 'width 8s linear';
+  progressBar.style.transition = `width ${segundos}s linear`;
   progressBar.style.width = '100%';
   
   clearTimeout(autoTimer);
@@ -159,7 +163,7 @@ function reiniciarProgress() {
     const vis = visiblesCount();
     const max = total - vis;
     irA(current >= max ? 0 : current + 1);
-  }, 8000);
+  }, CARRUSEL_INTERVALO_MS);
 }
 
 // TOUCH SUPPORT PARA CARRUSEL
