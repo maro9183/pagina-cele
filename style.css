@@ -676,7 +676,7 @@ footer {
   .hero-contenido { padding: 5rem 2rem 4rem; }
   .hero-titulo { font-size: clamp(2.4rem, 8vw, 3.5rem); }
   
-  .carrusel-slide { min-width: 100%; }
+  .carrusel-slide { min-width: 100%; padding: 0 1rem; }
   
   #sobre-mi { grid-template-columns: 1fr; }
   .sobre-decoracion { display: none; }
@@ -708,4 +708,22 @@ footer {
   .whatsapp-float { bottom: 1.5rem; right: 1.5rem; padding: 0.7rem; border-radius: 50%; }
   .whatsapp-float span { display: none; }
   .whatsapp-float svg { width: 22px; height: 22px; }
+}
+
+/* CARRUSEL - pantallas angostas */
+@media (max-width: 480px) {
+  #carrusel-section { padding: 3.5rem 0; }
+  .carrusel-header { padding: 0 1.5rem; margin-bottom: 2rem; }
+  .carrusel-slide { padding: 0 0.75rem; }
+  .carrusel-card {
+    padding: 2rem 1.5rem;
+    height: auto;
+    min-height: 220px;
+  }
+  .carrusel-titulo { font-size: 1.3rem; }
+  .carrusel-tag { font-size: 0.62rem; margin-bottom: 0.8rem; }
+  .carrusel-cta { margin-top: 1.5rem; font-size: 0.7rem; }
+  .carrusel-controles { padding: 0 1.5rem; margin-top: 1.8rem; gap: 1rem; }
+  .carrusel-btn { width: 36px; height: 36px; }
+  .carrusel-progress { width: 80px; }
 }
