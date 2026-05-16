@@ -122,14 +122,20 @@ function visiblesCount() {
   return window.innerWidth <= 900 ? 1 : 3;
 }
 
-// Crear dots
-slides.forEach((_,i) => {
-  const d = document.createElement('button');
-  d.className = 'carrusel-dot' + (i===0?' active':'');
-  d.setAttribute('aria-label', 'Ver tema '+(i+1));
-  d.onclick = () => irA(i);
-  dotsContainer.appendChild(d);
-});
+// Crear dots dinámicamente según la cantidad de posiciones reales
+function crearDots() {
+  dotsContainer.innerHTML = '';
+  const vis = visiblesCount();
+  const posiciones = total - vis + 1; // Desktop: 4, Mobile: 6
+  for (let i = 0; i < posiciones; i++) {
+    const d = document.createElement('button');
+    d.className = 'carrusel-dot' + (i === current ? ' active' : '');
+    d.setAttribute('aria-label', 'Ver tema ' + (i + 1));
+    d.onclick = () => irA(i);
+    dotsContainer.appendChild(d);
+  }
+}
+crearDots();
 
 function irA(n) {
   const vis = visiblesCount();
@@ -208,11 +214,19 @@ document.addEventListener('visibilitychange', () => {
   else reiniciarProgress();
 });
 
-// RESPONSIVE RESIZE
+// RESPONSIVE RESIZE — recrea dots al cambiar de vista
 let resizeTimer;
+let lastVis = visiblesCount();
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => irA(current), 100);
+  resizeTimer = setTimeout(() => {
+    const newVis = visiblesCount();
+    if (newVis !== lastVis) {
+      lastVis = newVis;
+      crearDots();
+    }
+    irA(current);
+  }, 100);
 });
 
 // SCROLL REVEAL (Intersection Observer)
