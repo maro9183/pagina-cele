@@ -38,7 +38,7 @@ const modales = [
     tag: 'Ejecución de sentencia',
     titulo: 'Tenés sentencia favorable:<br/><em>¿y ahora qué?</em>',
     cuerpo: 'Ganar un juicio es el primer paso. Cobrar lo que te corresponde puede requerir una etapa de ejecución con sus propias complejidades. Te acompañamos hasta el final del proceso.',
-    lista: ['Liquidación de los montos correspondientes','Notificación e intimación al organismo deudor','Seguimiento de los plazos de pago','Acciones ante incumplimientos de la sentencia','Sin honorarios hasta que cobres vos']
+    lista: ['Liquidación de los montos correspondientes','Notificación e intimación al organismo deudor','Seguimiento de los plazos de pago','Acciones ante incumplimientos de la sentencia']
   }
 ];
 
@@ -321,7 +321,7 @@ Mi teléfono es: ${data.telefono}.
 Asunto: ${data.tema || 'Consulta General'}
 Consulta: ${data.mensaje || 'Sin mensaje adicional'}.`;
 
-  const url = `https://wa.me/5492216238900?text=${encodeURIComponent(mensaje)}`;
+  const url = `https://wa.me/542212000119?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
 }
 
