@@ -325,8 +325,26 @@ Consulta: ${data.mensaje || 'Sin mensaje adicional'}.`;
   window.open(url, '_blank');
 }
 
+// CÁLCULO DINÁMICO DE AÑOS DE EXPERIENCIA (RELATIVO A 2011)
+function actualizarAnosExperiencia() {
+  const currentYear = new Date().getFullYear();
+  // Relativo a 2011 (en 2026 resultan 17 años hasta el 31 de diciembre de 2026)
+  const anosExp = (currentYear - 2011) + 2;
+
+  const elementos = document.querySelectorAll('.anos-experiencia');
+  elementos.forEach(el => {
+    el.textContent = anosExp;
+  });
+
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) {
+    metaDesc.content = metaDesc.content.replace(/\d+\s+años de experiencia/, `${anosExp} años de experiencia`);
+  }
+}
+
 // INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', () => {
+  actualizarAnosExperiencia();
   reiniciarProgress();
   
   // Actualizar año footer
