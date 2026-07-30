@@ -16,6 +16,7 @@
 html { 
   scroll-behavior: smooth;
   font-size: 16px;
+  background-color: #1A1410;
 }
 
 body {
@@ -25,6 +26,13 @@ body {
   font-weight: 300;
   line-height: 1.7;
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1;
 }
 
 /* ACCESIBILIDAD: Skip to content */
@@ -633,7 +641,8 @@ nav {
 
 /* FOOTER */
 footer {
-  background: #1A1410; padding: 2rem 4rem;
+  background: #1A1410; 
+  padding: 2rem 4rem max(2rem, env(safe-area-inset-bottom));
   display: flex; align-items: center; justify-content: space-between;
   border-top: 0.5px solid rgba(197,168,130,0.1);
 }
@@ -679,9 +688,51 @@ footer {
     font-size: 1.2rem;
   }
 
-  #inicio { grid-template-columns: 1fr; }
-  .hero-imagen { display: none; }
-  .hero-contenido { padding: 5rem 2rem 4rem; }
+  #inicio { 
+    display: flex; 
+    position: relative; 
+    overflow: hidden; 
+    min-height: calc(100vh - 80px);
+    align-items: center;
+  }
+  .hero-imagen { 
+    display: block; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    min-height: auto;
+  }
+  .hero-imagen-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    opacity: 0.22;
+    filter: brightness(0.95) contrast(0.95);
+  }
+  .hero-imagen::before {
+    display: none;
+  }
+  .hero-imagen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(250,247,243,0.7) 0%, rgba(250,247,243,0.45) 50%, rgba(250,247,243,0.85) 100%);
+    pointer-events: none;
+  }
+  .hero-contenido { 
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    padding: 5rem 2rem 4rem; 
+    width: 100%;
+  }
   .hero-titulo { font-size: clamp(2.4rem, 8vw, 3.5rem); }
   
   .carrusel-slide { min-width: 100%; padding: 0 1rem; }
@@ -707,7 +758,7 @@ footer {
   .contacto-izq { border-right: none; border-bottom: 0.5px solid rgba(197,168,130,0.15); }
   .form-row { grid-template-columns: 1fr; }
   
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2.5rem 2rem max(2.5rem, env(safe-area-inset-bottom)); }
   .modal-box { padding: 3rem 2rem; }
 }
 
