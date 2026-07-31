@@ -269,36 +269,50 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// FORMULARIO DESACOPLADO
-async function enviarFormulario(e) {
+// ENVÍO DE FORMULARIO A GOOGLE APPS SCRIPT
+function enviarFormulario(e) {
   e.preventDefault();
   const form = e.target;
   const btn = form.querySelector('.form-submit');
+  const respuesta = document.getElementById('respuesta');
   const originalText = btn.textContent;
   
-  // 1. Capturar datos
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  
-  console.log('Datos capturados para envío:', data);
-  
-  // 2. Feedback visual inmediato
   btn.textContent = 'Enviando...';
   btn.disabled = true;
 
-  // ... (bloque de fetch comentado omitido para brevedad) ...
+  if (respuesta) {
+    respuesta.className = 'form-respuesta enviando';
+    respuesta.innerHTML = 'Enviando mensaje...';
+  }
   
-  // SIMULACIÓN
-  setTimeout(() => {
-    btn.textContent = '¡Consulta recibida!';
-    btn.style.background = 'var(--acento)';
+  const data = new FormData(form);
+
+  fetch("https://script.google.com/macros/s/AKfycby0DTP0mkyg4xmgtgvMRi2tNIjxtUu4mCk4LPmJziCY-3sGo3JWEmHt3tJa_XWYidK7dQ/exec", {
+    method: "POST",
+    body: data
+  })
+  .then(response => response.text())
+  .then(dataText => {
+    if (respuesta) {
+      respuesta.className = 'form-respuesta exito';
+      respuesta.innerHTML = "✔ Mensaje enviado correctamente. Nos pondremos en contacto.";
+    }
+    btn.textContent = '¡Enviado!';
     form.reset();
+  })
+  .catch(error => {
+    console.error('Error en el envío:', error);
+    if (respuesta) {
+      respuesta.className = 'form-respuesta error';
+      respuesta.innerHTML = "❌ Error al enviar el mensaje. Podés intentar por WhatsApp.";
+    }
+  })
+  .finally(() => {
     setTimeout(() => {
       btn.textContent = originalText;
-      btn.style.background = '';
       btn.disabled = false;
-    }, 3000);
-  }, 1000);
+    }, 4000);
+  });
 }
 
 // LÓGICA WHATSAPP DESDE FORMULARIO

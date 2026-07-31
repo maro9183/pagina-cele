@@ -582,6 +582,34 @@ nav {
   margin-top: 0.8rem; text-align: center; line-height: 1.5;
 }
 
+.form-respuesta {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  display: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.form-respuesta.enviando {
+  display: block;
+  color: var(--arena);
+  background: rgba(197, 168, 130, 0.08);
+  border: 0.5px solid rgba(197, 168, 130, 0.3);
+}
+.form-respuesta.exito {
+  display: block;
+  color: #7dd3fc;
+  background: rgba(125, 211, 252, 0.08);
+  border: 0.5px solid rgba(125, 211, 252, 0.3);
+}
+.form-respuesta.error {
+  display: block;
+  color: #fca5a5;
+  background: rgba(252, 165, 165, 0.08);
+  border: 0.5px solid rgba(252, 165, 165, 0.3);
+}
+
 /* FLOATING BUTTONS (WHATSAPP & INSTAGRAM) */
 .floating-buttons {
   position: fixed;
