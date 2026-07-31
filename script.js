@@ -277,6 +277,35 @@ function enviarFormulario(e) {
   const respuesta = document.getElementById('respuesta');
   const originalText = btn.textContent;
   
+  const data = new FormData(form);
+  const nombre = (data.get('nombre') || '').toString().trim();
+  const apellido = (data.get('apellido') || '').toString().trim();
+  const telefono = (data.get('telefono') || '').toString().trim();
+  const email = (data.get('email') || '').toString().trim();
+  const tema = (data.get('tema') || '').toString().trim();
+  const mensaje = (data.get('mensaje') || '').toString().trim();
+
+  // VALIDACIÓN: Todos los campos obligatorios + al menos Teléfono o Email
+  if (!nombre || !apellido || !tema || !mensaje) {
+    if (respuesta) {
+      respuesta.className = 'form-respuesta error';
+      respuesta.innerHTML = '⚠️ Por favor, completá Nombre, Apellido, Tema de consulta y tu Mensaje.';
+    } else {
+      alert('Por favor, completá Nombre, Apellido, Tema de consulta y tu Mensaje.');
+    }
+    return;
+  }
+
+  if (!telefono && !email) {
+    if (respuesta) {
+      respuesta.className = 'form-respuesta error';
+      respuesta.innerHTML = '⚠️ Ingresá al menos un medio de contacto (Teléfono o Email) para poder comunicarnos.';
+    } else {
+      alert('Ingresá al menos un medio de contacto (Teléfono o Email).');
+    }
+    return;
+  }
+
   btn.textContent = 'Enviando...';
   btn.disabled = true;
 
@@ -284,8 +313,6 @@ function enviarFormulario(e) {
     respuesta.className = 'form-respuesta enviando';
     respuesta.innerHTML = 'Enviando mensaje...';
   }
-  
-  const data = new FormData(form);
 
   fetch("https://script.google.com/macros/s/AKfycby0DTP0mkyg4xmgtgvMRi2tNIjxtUu4mCk4LPmJziCY-3sGo3JWEmHt3tJa_XWYidK7dQ/exec", {
     method: "POST",
@@ -322,18 +349,31 @@ function enviarWhatsAppForm(e) {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
-  if (!data.nombre || !data.telefono) {
-    alert('Por favor, completá al menos tu nombre y teléfono.');
+  const nombre = (data.nombre || '').trim();
+  const apellido = (data.apellido || '').trim();
+  const telefono = (data.telefono || '').trim();
+  const email = (data.email || '').trim();
+  const tema = (data.tema || '').trim();
+  const mensajeTexto = (data.mensaje || '').trim();
+
+  if (!nombre || !apellido || !tema || !mensajeTexto) {
+    alert('Por favor, completá Nombre, Apellido, Tema de consulta y tu Mensaje.');
+    return;
+  }
+
+  if (!telefono && !email) {
+    alert('Por favor, ingresá al menos un medio de contacto (Teléfono o Email).');
     return;
   }
 
   // Armar el mensaje elegante
   const mensaje = `Hola Celeste! 👋 
-Mi nombre es ${data.nombre} ${data.apellido || ''}. 
-Mi teléfono es: ${data.telefono}. 
+Mi nombre es ${nombre} ${apellido}. 
+${telefono ? 'Mi teléfono es: ' + telefono : ''}
+${email ? 'Mi email es: ' + email : ''}
 
-Asunto: ${data.tema || 'Consulta General'}
-Consulta: ${data.mensaje || 'Sin mensaje adicional'}.`;
+Asunto: ${tema}
+Consulta: ${mensajeTexto}.`;
 
   const url = `https://wa.me/542212000119?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');

@@ -448,17 +448,22 @@
             </div>
             <div class="form-grupo">
               <label class="form-label" for="apellido">Apellido</label>
-              <input type="text" id="apellido" name="apellido" class="form-input" placeholder="Tu apellido" />
+              <input type="text" id="apellido" name="apellido" class="form-input" placeholder="Tu apellido" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-grupo">
+              <label class="form-label" for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Tu teléfono" />
+            </div>
+            <div class="form-grupo">
+              <label class="form-label" for="email">Correo Electrónico</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" />
             </div>
           </div>
           <div class="form-grupo">
-            <label class="form-label" for="telefono">Teléfono o WhatsApp</label>
-            <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Para poder contactarte"
-              required />
-          </div>
-          <div class="form-grupo">
             <label class="form-label" for="tema">Tema de consulta</label>
-            <select id="tema" name="tema" class="form-select">
+            <select id="tema" name="tema" class="form-select" required>
               <option value="">Seleccioná una opción</option>
               <option value="Jubilación">Iniciar jubilación / pensión</option>
               <option value="Reajuste">Reajuste de haberes</option>
@@ -473,7 +478,7 @@
           <div class="form-grupo">
             <label class="form-label" for="mensaje">Contame tu situación</label>
             <textarea id="mensaje" name="mensaje" class="form-textarea"
-              placeholder="Describí brevemente tu caso para orientar mejor la consulta…"></textarea>
+              placeholder="Describí brevemente tu caso para orientar mejor la consulta…" required></textarea>
           </div>
 
           <div class="form-actions">
