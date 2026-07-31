@@ -74,9 +74,17 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-style: italic; font-weight: 400;
-  color: var(--oscuro); text-decoration: none; letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 48px;
+}
+.nav-logo-video {
+  height: 44px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
@@ -774,9 +782,32 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  nav { padding: 1.2rem 2rem; }
-  
-  .menu-toggle { display: block; }
+  nav { 
+    padding: 0.8rem 1.5rem;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 42px;
+  }
+
+  .nav-logo-video {
+    height: 38px;
+    max-width: 170px;
+  }
+
+  .menu-toggle { 
+    display: block; 
+    margin-left: auto;
+    position: relative;
+    z-index: 201;
+  }
   
   .nav-links {
     position: fixed;
