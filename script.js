@@ -97,10 +97,35 @@ function toggleMobileMenu() {
 
 menuToggle.addEventListener('click', toggleMobileMenu);
 
-// Cerrar menu al clickear un link
+// Cerrar menu al clickear un link y hacer scroll a la sección
+const mainContent = document.getElementById('main-content');
+
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
     if (navLinks.classList.contains('active')) toggleMobileMenu();
+  });
+});
+
+// También manejar los botones CTA del hero y otros links internos
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  // Evitar duplicar los del navbar
+  if (link.closest('.nav-links')) return;
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 });
 
@@ -243,14 +268,15 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // NAV SHADOW & SCROLL PERF
-let lastScrollY = window.scrollY;
 let ticking = false;
 
-window.addEventListener('scroll', () => {
+const scrollContainer = document.getElementById('main-content');
+scrollContainer.addEventListener('scroll', () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const nav = document.getElementById('main-nav');
-      if (window.scrollY > 40) {
+      const scrollY = scrollContainer.scrollTop;
+      if (scrollY > 40) {
         nav.style.boxShadow = '0 1px 24px rgba(44,36,32,0.07)';
         nav.style.padding = '1rem 4rem';
       } else {
@@ -260,7 +286,7 @@ window.addEventListener('scroll', () => {
       
       // Ajuste para mobile padding
       if (window.innerWidth <= 900) {
-        nav.style.padding = window.scrollY > 40 ? '0.8rem 2rem' : '1.2rem 2rem';
+        nav.style.padding = scrollY > 40 ? '0.8rem 2rem' : '1.2rem 2rem';
       }
       
       ticking = false;
@@ -402,8 +428,14 @@ if ('scrollRestoration' in history) {
 }
 
 window.addEventListener('load', () => {
+  const mc = document.getElementById('main-content');
   if (!window.location.hash || window.location.hash === '#inicio' || window.location.hash === '#') {
-    window.scrollTo(0, 0);
+    mc.scrollTo(0, 0);
+  } else {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
   }
 });
 
