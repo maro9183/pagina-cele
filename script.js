@@ -396,6 +396,17 @@ function actualizarAnosExperiencia() {
   }
 }
 
+// CONTROL DE SCROLL INICIAL AL ABRIR DESDE UN LINK
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('load', () => {
+  if (!window.location.hash || window.location.hash === '#inicio' || window.location.hash === '#') {
+    window.scrollTo(0, 0);
+  }
+});
+
 // INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', () => {
   actualizarAnosExperiencia();

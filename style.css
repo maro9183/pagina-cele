@@ -15,6 +15,7 @@
 
 html { 
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   font-size: 16px;
   background-color: #1A1410;
 }
@@ -113,14 +114,16 @@ nav {
 
 /* HERO */
 #inicio {
-  height: calc(100vh - 80px);
-  height: calc(100dvh - 80px);
-  min-height: 500px;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-columns: 1fr 1fr; 
-  margin-top: 80px;
+  margin-top: 0;
+  padding-top: 80px;
   background: var(--fondo);
   overflow: hidden;
+  box-sizing: border-box;
+  scroll-margin-top: 0;
 }
 .hero-imagen, .hero-video-wrap {
   position: relative;
@@ -801,12 +804,15 @@ footer {
     display: flex; 
     position: relative; 
     overflow: hidden; 
-    margin-top: 80px;
+    margin-top: 0;
+    padding-top: 80px;
     height: auto;
-    min-height: calc(100vh - 80px);
-    min-height: calc(100dvh - 80px);
+    min-height: 100vh;
+    min-height: 100dvh;
     align-items: center;
     background: var(--fondo);
+    box-sizing: border-box;
+    scroll-margin-top: 0;
   }
   .hero-video-wrap { 
     display: block; 
