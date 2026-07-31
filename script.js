@@ -99,24 +99,38 @@ menuToggle.addEventListener('click', toggleMobileMenu);
 
 // Cerrar menu al clickear un link y hacer scroll a la sección
 const mainContent = document.getElementById('main-content');
+// Helper: detecta si estamos en desktop (snap) o mobile (scroll libre)
+function isDesktop() {
+  return window.innerWidth > 900;
+}
+
+// Helper: scroll suave a una sección
+function scrollToSection(target) {
+  if (!target) return;
+  if (isDesktop()) {
+    // Desktop: #main-content es el scroll container con snap
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    // Mobile: scroll en window, offset manual por el navbar fijo
+    const navH = document.getElementById('main-nav').offsetHeight;
+    const top = target.getBoundingClientRect().top + window.scrollY - navH;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
 
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', (e) => {
     const href = link.getAttribute('href');
     if (href && href.startsWith('#')) {
       e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      scrollToSection(document.querySelector(href));
     }
     if (navLinks.classList.contains('active')) toggleMobileMenu();
   });
 });
 
-// También manejar los botones CTA del hero y otros links internos
+// Botones CTA del hero y otros links internos
 document.querySelectorAll('a[href^="#"]').forEach(link => {
-  // Evitar duplicar los del navbar
   if (link.closest('.nav-links')) return;
   link.addEventListener('click', (e) => {
     const href = link.getAttribute('href');
@@ -124,7 +138,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const target = document.querySelector(href);
     if (target) {
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollToSection(target);
     }
   });
 });
@@ -270,29 +284,29 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // NAV SHADOW & SCROLL PERF
 let ticking = false;
 
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      const nav = document.getElementById('main-nav');
-      const scrollY = window.scrollY;
-      if (scrollY > 40) {
-        nav.style.boxShadow = '0 1px 24px rgba(44,36,32,0.07)';
-        nav.style.padding = '1rem 4rem';
-      } else {
-        nav.style.boxShadow = 'none';
-        nav.style.padding = '1.4rem 4rem';
-      }
-      
-      // Ajuste para mobile padding
-      if (window.innerWidth <= 900) {
-        nav.style.padding = scrollY > 40 ? '0.8rem 2rem' : '1.2rem 2rem';
-      }
-      
-      ticking = false;
-    });
-    ticking = true;
-  }
-}, { passive: true });
+function updateNavShadow() {
+  if (ticking) return;
+  window.requestAnimationFrame(() => {
+    const nav = document.getElementById('main-nav');
+    const scrollY = isDesktop()
+      ? document.getElementById('main-content').scrollTop
+      : window.scrollY;
+
+    if (scrollY > 40) {
+      nav.style.boxShadow = '0 1px 24px rgba(44,36,32,0.07)';
+      nav.style.padding = isDesktop() ? '1rem 4rem' : '0.8rem 2rem';
+    } else {
+      nav.style.boxShadow = 'none';
+      nav.style.padding = isDesktop() ? '1.4rem 4rem' : '1.2rem 2rem';
+    }
+    ticking = false;
+  });
+  ticking = true;
+}
+
+// Escucha ambos contenedores; en cada caso solo uno estará activo
+window.addEventListener('scroll', updateNavShadow, { passive: true });
+document.getElementById('main-content').addEventListener('scroll', updateNavShadow, { passive: true });
 
 // ENVÍO DE FORMULARIO A GOOGLE APPS SCRIPT
 function enviarFormulario(e) {
@@ -427,12 +441,22 @@ if ('scrollRestoration' in history) {
 }
 
 window.addEventListener('load', () => {
-  if (!window.location.hash || window.location.hash === '#inicio' || window.location.hash === '#') {
-    window.scrollTo(0, 0);
-  } else {
+  const hasHash = window.location.hash && window.location.hash !== '#' && window.location.hash !== '#inicio';
+  if (hasHash) {
     const target = document.querySelector(window.location.hash);
     if (target) {
-      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      if (isDesktop()) {
+        target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      } else {
+        const navH = document.getElementById('main-nav').offsetHeight;
+        window.scrollTo({ top: target.offsetTop - navH, behavior: 'instant' });
+      }
+    }
+  } else {
+    if (isDesktop()) {
+      document.getElementById('main-content').scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 0);
     }
   }
 });
