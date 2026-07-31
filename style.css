@@ -74,17 +74,13 @@ nav {
 }
 
 .nav-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  height: 48px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 400;
+  color: var(--oscuro); text-decoration: none; letter-spacing: 0.03em;
 }
-.nav-logo-video {
-  height: 44px;
-  width: auto;
-  max-width: 200px;
-  object-fit: contain;
-  border-radius: 4px;
+
+.mobile-logo-li {
+  display: none;
 }
 
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
@@ -782,47 +778,51 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  nav { 
-    padding: 0.8rem 1.5rem;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  nav { padding: 1.2rem 2rem; display: flex; align-items: center; justify-content: space-between; }
 
   .nav-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 42px;
+    position: static;
+    transform: none;
   }
 
-  .nav-logo-video {
-    height: 38px;
-    max-width: 170px;
-  }
-
-  .menu-toggle { 
-    display: block; 
-    margin-left: auto;
-    position: relative;
-    z-index: 201;
-  }
+  .menu-toggle { display: block; }
   
   .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
+    width: 85%;
     height: 100vh;
+    height: 100dvh;
     background: var(--fondo);
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 4.5rem;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1.8rem;
     transition: right 0.5s ease;
     box-shadow: -10px 0 30px rgba(0,0,0,0.05);
     z-index: 200;
+  }
+
+  .mobile-logo-li {
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .mobile-menu-logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .mobile-menu-logo-video {
+    width: 240px;
+    height: auto;
+    max-height: 130px;
+    object-fit: contain;
+    border-radius: 6px;
   }
   
   .nav-links.active {
