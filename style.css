@@ -1544,11 +1544,15 @@ footer {
   }
 
   /* Todas las secciones: sin snap, altura natural */
-  section,
-  .valores {
+  #carrusel-section,
+  #sobre-mi,
+  #areas,
+  #ofrecemos,
+  #como-trabajo,
+  #contacto {
     scroll-margin-top: 72px;
-    scroll-snap-align: none !important;
-    scroll-snap-stop: normal !important;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
     flex-shrink: 1;
     height: auto;
     min-height: 0;
