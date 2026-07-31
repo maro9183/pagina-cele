@@ -270,12 +270,11 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // NAV SHADOW & SCROLL PERF
 let ticking = false;
 
-const scrollContainer = document.getElementById('main-content');
-scrollContainer.addEventListener('scroll', () => {
+window.addEventListener('scroll', () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const nav = document.getElementById('main-nav');
-      const scrollY = scrollContainer.scrollTop;
+      const scrollY = window.scrollY;
       if (scrollY > 40) {
         nav.style.boxShadow = '0 1px 24px rgba(44,36,32,0.07)';
         nav.style.padding = '1rem 4rem';
@@ -428,9 +427,8 @@ if ('scrollRestoration' in history) {
 }
 
 window.addEventListener('load', () => {
-  const mc = document.getElementById('main-content');
   if (!window.location.hash || window.location.hash === '#inicio' || window.location.hash === '#') {
-    mc.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   } else {
     const target = document.querySelector(window.location.hash);
     if (target) {

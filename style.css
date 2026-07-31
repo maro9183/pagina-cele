@@ -20,10 +20,14 @@
 }
 
 html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   font-size: 16px;
   background-color: #1A1410;
-  height: 100%;
-  overflow: hidden;
+}
+
+section {
+  scroll-margin-top: 80px;
 }
 
 body {
@@ -32,17 +36,15 @@ body {
   color: var(--oscuro);
   font-weight: 300;
   line-height: 1.7;
-  overflow: hidden;
-  height: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 #main-content {
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  height: 100vh;
-  height: 100dvh;
-  /* Contenedor principal de scroll: cada sección snappea al viewport */
+  flex: 1;
 }
 
 /* ACCESIBILIDAD: Skip to content */
@@ -156,8 +158,8 @@ nav {
 
 /* HERO */
 #inicio {
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 0;
@@ -165,9 +167,7 @@ nav {
   background: var(--fondo);
   overflow: hidden;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
+  scroll-margin-top: 0;
 }
 
 .hero-imagen,
@@ -310,15 +310,12 @@ nav {
   background: var(--oscuro);
   padding: 4rem 0;
   overflow: hidden;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
 }
 
 .carrusel-header {
@@ -633,14 +630,11 @@ nav {
 #sobre-mi {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--oscuro);
   overflow: hidden;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
 }
 
 .sobre-decoracion {
@@ -792,16 +786,12 @@ nav {
 #areas {
   padding: 5rem 4rem;
   background: var(--crema-suave);
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
-  overflow: hidden;
 }
 
 .areas-header {
@@ -921,16 +911,12 @@ nav {
 #ofrecemos {
   padding: 5rem 4rem;
   background: var(--fondo);
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
-  overflow: hidden;
 }
 
 .ofrecemos-header {
@@ -1010,17 +996,13 @@ nav {
   background: var(--crema-suave);
   padding: 5rem 4rem;
   text-align: center;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
-  overflow: hidden;
 }
 
 .valores-grid {
@@ -1130,13 +1112,9 @@ nav {
   background: var(--oscuro);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  flex-shrink: 0;
-  overflow: hidden;
 }
 
 .contacto-izq {
@@ -1682,7 +1660,6 @@ footer {
 
   #areas {
     padding: 6rem 2rem;
-    overflow-y: auto;
   }
 
   .area-card {
@@ -1695,7 +1672,6 @@ footer {
 
   #ofrecemos {
     padding: 6rem 2rem;
-    overflow-y: auto;
   }
 
   .valores-grid {
@@ -1715,10 +1691,6 @@ footer {
 
   #contacto {
     grid-template-columns: 1fr;
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    overflow-y: auto;
   }
 
   .contacto-izq,
